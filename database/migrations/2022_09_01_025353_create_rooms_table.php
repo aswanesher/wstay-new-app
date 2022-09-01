@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDepartmentsTable extends Migration
+class CreateRoomsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,16 @@ class CreateDepartmentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('tbl_departments', function (Blueprint $table) {
+        Schema::create('tbl_rooms', function (Blueprint $table) {
             $table->id();
+            $table->string('room_no');
+            $table->bigInteger('floor_id')->unsigned();
+            $table->foreign('floor_id')->references('id')->on('tbl_floors');
             $table->bigInteger('hotel_id')->unsigned();
             $table->foreign('hotel_id')->references('id')->on('tbl_hotel_infos');
-            $table->string('department_code');
-            $table->string('department_name');
-            $table->text('description')->nullable();
-            $table->double('price', 11, 2)->default(0);
-            $table->string('unit')->nullable();
-            $table->boolean('isEdit')->default(0);
+            $table->bigInteger('room_type_id')->unsigned();
+            $table->foreign('room_type_id')->references('id')->on('tbl_room_types');
+            $table->boolean('isAllowSmoking')->default(0);
             $table->timestamps();
         });
     }
@@ -34,6 +34,6 @@ class CreateDepartmentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('departments');
+        Schema::dropIfExists('rooms');
     }
 }
