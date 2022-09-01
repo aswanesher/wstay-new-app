@@ -19,7 +19,7 @@ class CreateSpecialDaysTable extends Migration
             $table->foreign('hotel_id')->references('id')->on('tbl_hotel_infos');
             $table->string('day_name');
             $table->date('from_date');
-            $table->date('to_date');
+            /* $table->date('to_date'); */
             $table->timestamps();
         });
     }
